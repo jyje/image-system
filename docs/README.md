@@ -4,4 +4,4 @@
 - [공개 디자인 시스템 사례](references.md)
 - [갤러리](../gallery/README.md)
 - [카탈로그](../catalog/catalog.json)
-- [jyje 로고 SVG](../assets/brand/jyje.svg)는 `jyje/profile`의 `assets/icons/jyje.svg` 원본입니다.
+- [브랜드 에셋과 로고 크기별 미리보기](../assets/brand/README.md)
