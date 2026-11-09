@@ -10,7 +10,7 @@ A reusable image library and generation workflow for a personal design system.
 
 </div>
 
-Start with the intended use. Find a suitable image in the gallery or combine a versioned palette, style, and recipe to create a new one. Keep the image and its production notes together so both can be reused.
+Use this repository to make and reuse images for jyje's own projects. Look in the gallery first. Use the image file directly if it fits, or adapt its palette, style, and recipe when you need a new image.
 
 The default accent is the red-bean tone `#680C2C` shared by `jyje/profile` and `jyje/profile-2`.
 

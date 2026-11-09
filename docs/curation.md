@@ -41,5 +41,10 @@ flowchart LR
 - Keep drafts, private originals, and reference files under the ignored `temp/` directory. Confirm permission to include a file before registering it.
 - Record each asset's file, recipe, alt text, source, and reuse terms. Write gallery descriptions as `{ "en": "...", "ko": "..." }` in the catalog. Use `source` to record the tool and settings in the initial experiments.
 - Use `sample` for comparison assets, `approved` for reviewed assets, and `archived` for assets retired from the active gallery. Keep archived files and records so past uses remain traceable.
-- When you reuse an asset or adapt a recipe, record its ID and placement in the work's documentation.
 - Run `node scripts/gallery.mjs build` and `node scripts/gallery.mjs check` after registration. The check validates the catalog and both generated gallery READMEs. Placement and reuse terms require human review.
+
+## Reuse in another project
+
+1. Find an approved image by use case in the [gallery](../gallery/README.md). Open the image file from its card.
+2. If the file fits, link to it when the destination can access it. Use a commit-pinned file URL when the rendering needs to stay identical, or copy the approved file into the destination project and use a local path.
+3. If the subject or composition needs to change, start from the linked recipe and register the new image under its own ID. Record the asset or recipe ID and placement in the project that uses it.
