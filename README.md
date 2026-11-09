@@ -25,6 +25,14 @@ node scripts/gallery.mjs build
 node scripts/gallery.mjs check
 ```
 
+## Static gallery preview
+
+Run `node scripts/gallery.mjs site` and open `dist/gallery/index.html` in a browser. The English and Korean pages use the same catalog. When an image has multiple files, choose a format or size from its menu. **Copy URL** copies the selected file's `raw.githubusercontent.com` URL.
+
+GitHub Pages serves the generated files from the root of `gh-pages`. Build with `IMAGE_SYSTEM_RAW_REF=$(git rev-parse HEAD) node scripts/gallery.mjs site` from an already pushed source commit so the published Raw URLs point to that exact snapshot. Publish only the contents of `dist/gallery/` to `gh-pages`.
+
+The responsive grid is adapted from [Through The Lens](https://github.com/Vojislav77/gallery-website). Its MIT notice is in [LICENSE.template](site/LICENSE.template).
+
 - [GOAL.md](GOAL.md) defines the project and its success criteria.
 - [PLAN.md](PLAN.md) tracks the path from the starter gallery to a generation pilot.
 - [docs/](docs/README.md) covers curation, review, and reference projects.

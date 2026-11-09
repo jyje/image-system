@@ -40,6 +40,7 @@ flowchart LR
 - Use versioned IDs such as `-v1` for palettes, styles, and recipes in `catalog/catalog.json`. Create a new ID when a design changes. Keep existing asset references intact and give a revised image a new ID and filename.
 - Keep drafts, private originals, and reference files under the ignored `temp/` directory. Confirm permission to include a file before registering it.
 - Record each asset's file, recipe, alt text, source, and reuse terms. Write gallery descriptions as `{ "en": "...", "ko": "..." }` in the catalog. Use `source` to record the tool and settings in the initial experiments.
+- Use `file` as the preview and list alternate formats or sizes of the same image in `variants`. Use the same asset ID in each filename, such as `quiet-tray-v1.svg`, `quiet-tray-v1.png`, or `quiet-tray-v1-200x200.png`. SVG, GIF, PNG, JPG, JPEG, WebP, and AVIF are supported. A different composition or subject gets its own asset ID.
 - Use `sample` for comparison assets, `approved` for reviewed assets, and `archived` for assets retired from the active gallery. Keep archived files and records so past uses remain traceable.
 - Run `node scripts/gallery.mjs build` and `node scripts/gallery.mjs check` after registration. The check validates the catalog and both generated gallery READMEs. Placement and reuse terms require human review.
 

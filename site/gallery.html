@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#680C2C">
+  <title>{{title}} | jyje</title>
+  <link rel="icon" href="assets/jyje.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="gallery.css">
+  <script src="gallery.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="frame header-row">
+      <a class="wordmark" href="{{home}}">
+        <img src="assets/jyje.svg" width="36" height="36" alt="">
+        <span>jyje <span class="slash">/</span> Image System</span>
+      </a>
+      <nav aria-label="{{languages}}">
+        <a href="index.html" lang="en"{{englishCurrent}}>EN</a>
+        <a href="ko.html" lang="ko"{{koreanCurrent}}>한국어</a>
+      </nav>
+    </div>
+  </header>
+  <main class="frame">
+    <div class="intro">
+      <h1>{{title}}</h1>
+      <p>{{description}}</p>
+    </div>
+    {{collection}}
+    <section class="brand" aria-labelledby="brand-heading" data-asset>
+      <div class="section-heading">
+        <p class="index-label">{{brandLabel}}</p>
+        <h2 id="brand-heading">{{brandTitle}}</h2>
+      </div>
+      {{logoSteps}}
+      <div class="brand-entry">
+        {{brandActions}}
+        <a class="open-file" href="assets/jyje.svg" data-preview>{{openFile}}</a>
+      </div>
+    </section>
+  </main>
+  <footer class="frame footer">
+    <a href="https://github.com/jyje/image-system">GitHub</a>
+    <a href="https://github.com/Vojislav77/gallery-website">{{templateCredit}}</a>
+  </footer>
+</body>
+</html>

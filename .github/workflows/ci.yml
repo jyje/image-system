@@ -21,3 +21,4 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       - run: node scripts/gallery.mjs check
+      - run: node scripts/gallery.mjs site

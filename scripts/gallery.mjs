@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
 import { existsSync, lstatSync, readFileSync, writeFileSync } from "node:fs";
+import { buildSite } from "../site/build.mjs";
+import { assetFiles } from "./asset-files.mjs";
 
 const catalogUrl = new URL("../catalog/catalog.json", import.meta.url);
 const galleryUrl = new URL("../gallery/", import.meta.url);
 const assetsUrl = new URL("assets/", galleryUrl);
 const versionedId = /^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$/;
+const imageExtensions = ["svg", "gif", "png", "jpg", "jpeg", "webp", "avif"];
 
 const locales = {
   en: {
@@ -17,7 +20,7 @@ const locales = {
     noApproved: "There are no approved assets yet.",
     sample: "Comparison samples",
     noSamples: "There are no comparison samples yet.",
-    image: "Image file",
+    images: "Image files",
     palette: "Palette",
     style: "Style",
     avoid: "Avoid",
@@ -35,7 +38,7 @@ const locales = {
     noApproved: "승인된 이미지가 아직 없습니다.",
     sample: "비교용 샘플",
     noSamples: "등록된 샘플이 아직 없습니다.",
-    image: "이미지 파일",
+    images: "이미지 파일",
     palette: "팔레트",
     style: "스타일",
     avoid: "피할 표현",
@@ -116,12 +119,19 @@ function validate({ defaultPalette, useCases, palettes, styles, recipes, assets 
     }
     assert(["sample", "approved", "archived"].includes(asset.status), `${id}: invalid status`);
     assert(typeof asset.recipe === "string" && Object.hasOwn(recipes, asset.recipe), `${id}: unknown recipe ${asset.recipe}`);
-    assert(
-      ["svg", "png", "jpg", "jpeg", "webp", "avif"].some((ext) => asset.file === `${id}.${ext}`),
-      `${id}: file must be named after the asset ID with a supported image extension`,
-    );
-    const file = lstatSync(new URL(asset.file, assetsUrl), { throwIfNoEntry: false });
-    assert(file?.isFile() && file.size > 0, `${id}: missing or empty asset ${asset.file}`);
+    assert(asset.variants === undefined || Array.isArray(asset.variants), `${id}: variants must be an array`);
+    const files = assetFiles(asset);
+    assert(new Set(files).size === files.length, `${id}: duplicate image file`);
+    const sizedVariant = new RegExp(`^${id}-[1-9]\\d*x[1-9]\\d*\\.(?:${imageExtensions.join("|")})$`);
+    for (const [index, filename] of files.entries()) {
+      requireText(filename, `${id}.file`);
+      assert(
+        imageExtensions.some((ext) => filename === `${id}.${ext}`) || (index > 0 && sizedVariant.test(filename)),
+        `${id}: use the asset ID and a supported extension, with an optional width×height suffix for variants`,
+      );
+      const file = lstatSync(new URL(filename, assetsUrl), { throwIfNoEntry: false });
+      assert(file?.isFile() && file.size > 0, `${id}: missing or empty asset ${filename}`);
+    }
   }
 }
 
@@ -135,12 +145,13 @@ function renderCard(asset, { recipes, palettes, styles }, language, labels) {
   const style = styles[recipe.style];
   const colors = Object.entries(palette.colors).map(([role, hex]) => `${role} \`${hex}\``);
   const file = `assets/${asset.file}`;
+  const links = assetFiles(asset).map((filename) => `[${filename}](assets/${filename})`);
 
   return [
     `#### ${escapeText(asset.title)}`,
     `<img src="${file}" width="360" alt="${escapeText(asset.alt[language])}">`,
     [
-      `- [${labels.image}](${file}) · ${recipe.size.join(" × ")} px`,
+      `- ${labels.images} · ${links.join(" · ")} · ${recipe.size.join(" × ")} px`,
       `- ${labels.palette} ${escapeText(palette.name)} (\`${recipe.palette}\`) · ${colors.join(" · ")}`,
       `- ${labels.style} ${escapeText(style.name)} (\`${recipe.style}\`) · ${escapeText(style.direction[language])}`,
       `- ${labels.avoid} · ${escapeText(style.avoid[language])}`,
@@ -178,11 +189,7 @@ function render(catalog, language, labels) {
   return `${sections.join("\n\n")}\n`;
 }
 
-try {
-  const [mode, ...extraArgs] = process.argv.slice(2);
-  assert(["build", "check"].includes(mode) && extraArgs.length === 0, "Usage: node scripts/gallery.mjs <build|check>");
-  const catalog = JSON.parse(readFileSync(catalogUrl, "utf8"));
-  validate(catalog);
+function updateMarkdown(catalog, mode) {
   for (const [language, labels] of Object.entries(locales)) {
     const output = new URL(labels.file, galleryUrl);
     const markdown = render(catalog, language, labels);
@@ -198,6 +205,18 @@ try {
   }
   if (mode === "check") {
     console.log(`English and Korean gallery checks passed (${Object.keys(catalog.assets).length} assets).`);
+  }
+}
+
+try {
+  const [mode, ...extraArgs] = process.argv.slice(2);
+  assert(["build", "check", "site"].includes(mode) && extraArgs.length === 0, "Usage: node scripts/gallery.mjs <build|check|site>");
+  const catalog = JSON.parse(readFileSync(catalogUrl, "utf8"));
+  validate(catalog);
+  if (mode === "site") {
+    buildSite(catalog, assetsUrl);
+  } else {
+    updateMarkdown(catalog, mode);
   }
 } catch (error) {
   console.error(error.message);

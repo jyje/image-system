@@ -9,7 +9,10 @@
 | 16px | 32px | 64px | 112px |
 | :---: | :---: | :---: | :---: |
 | <img src="jyje.svg" width="16" height="16" alt="16px jyje 로고"> | <img src="jyje.svg" width="32" height="32" alt="32px jyje 로고"> | <img src="jyje.svg" width="64" height="64" alt="64px jyje 로고"> | <img src="jyje.svg" width="112" height="112" alt="112px jyje 로고"> |
+| [jyje-16x16.png](jyje-16x16.png) | [jyje-32x32.png](jyje-32x32.png) | [jyje-64x64.png](jyje-64x64.png) | [jyje-112x112.png](jyje-112x112.png) |
 | 파비콘 검수 | 작은 아이콘 | 썸네일 | 프로젝트 README |
+
+각 PNG는 SVG에서 표시된 픽셀 크기로 직접 내보냈으며, 모서리는 투명합니다. 새 파일은 이 폴더에 `jyje-<가로>x<세로>.png` 형식으로 저장합니다. 예를 들어 `jyje-48x48.png`입니다. 갤러리는 빌드할 때 해당 파일을 찾아 실제 크기를 검증하고, 작은 크기부터 표시합니다. 미리보기나 메뉴에서 파일을 고른 뒤 **URL 복사**를 누르면 됩니다.
 
 작은 크기에서는 흰색 획 사이의 여백과 글자의 구분을 확인합니다. 파비콘은 브라우저 탭에서도 검수합니다.
 

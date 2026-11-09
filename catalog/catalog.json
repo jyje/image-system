@@ -90,6 +90,7 @@
       "recipe": "empty-state-spot-v1",
       "status": "sample",
       "file": "quiet-tray-v1.svg",
+      "variants": ["quiet-tray-v1.png"],
       "alt": {
         "en": "A red-bean colored dot and short strokes float above a light gray tray against a pale pink circle.",
         "ko": "연분홍 원을 배경으로 옅은 회색 트레이 위에 팥죽색 원과 짧은 선이 떠 있습니다."
