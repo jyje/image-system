@@ -1,23 +1,25 @@
-# PLAN
+# Plan
 
-| 결정 | 초기 선택 |
+[English](PLAN.md) / [한국어](PLAN-ko.md)
+
+| Decision | Initial choice |
 | --- | --- |
-| 운영 방식 | Git에서 팔레트·스타일·레시피·자산을 함께 버전 관리 |
-| 공개 형태 | 카탈로그로부터 생성한 Markdown 갤러리 |
-| 초기 디자인 | 두 프로필의 공통 팥죽색 `#680C2C`를 기본 강조색으로 사용. 라이트·다크 팔레트, 스타일, 자체 제작 SVG 각 2종 |
-| 구현 | Node.js 22 기본 모듈, 설치 단계 없는 CI |
-| 언어 | 영어·한국어 진입점, 한국어 운영 문서 |
+| Maintenance | Version palettes, styles, recipes, and assets together in Git |
+| Gallery | Generate English and Korean Markdown from the same catalog |
+| Starter design | Use the profiles' shared red-bean accent `#680C2C`. Start with two palettes, two styles, and two original SVG samples |
+| Implementation | Use Node.js 22 built-ins and run CI without an install step |
+| Language | English primary documentation with Korean translations. Use `README.md` for English and `README-ko.md` for Korean |
 
-## 작업 순서
+## Work sequence
 
-- [x] 목적과 성공 기준을 정의하고 공식 디자인 시스템 사례를 정리합니다.
-- [x] 버전이 붙은 팔레트·스타일·레시피, 샘플, 갤러리 빌드와 검증을 구성합니다.
-- [ ] 실제 빈 상태 화면과 문서·발표 표지에 샘플을 배치하고 배경, 강조색 비중, 스타일을 검수합니다.
-- [ ] 같은 주제와 레시피로 후보를 3장씩 생성합니다. 첫 실험에서는 색상 지시 방식과 참조 이미지 사용 여부를 한 번에 하나씩 바꾸고, 색·구도·스타일·용도 적합도를 기록합니다.
-- [ ] 결과가 좋은 레시피를 다른 주제에 적용합니다. 승인 자산 4종, 실제 배치 2건, 재사용 2건을 기록합니다.
-- [ ] 수동 생성 과정에서 반복이 확인되면 생성 도구 하나를 선택해 레시피 입력과 결과 가져오기를 자동화합니다.
-- [ ] 승인 자산이 늘어 탐색 비용이 커지면 용도·팔레트·스타일·비율 필터가 있는 정적 갤러리를 추가합니다.
+- [x] Define the project goal and success criteria, and review public design systems.
+- [x] Set up versioned palettes, styles, recipes, and samples, with a gallery build and check.
+- [ ] Place the samples in an actual empty state and on a document or presentation cover. Review the background, accent prominence, and style.
+- [ ] Generate three candidates per condition for the same subject and recipe. In the first experiment, vary the color instructions and use of a reference image one at a time. Record color, composition, style, and fit.
+- [ ] Apply promising recipes to other subjects. Record four approved assets, two in-context placements, and two examples of reuse.
+- [ ] If the manual workflow repeats, choose a generation tool and automate recipe input and result import.
+- [ ] If browsing becomes difficult as the approved collection grows, add a static gallery with filters for use case, palette, style, and aspect ratio.
 
-첫 생성 실험은 수동으로 진행합니다. 실행 전 도구, 비용 한도, 참조 이미지의 사용 범위를 정하고, 결과는 날짜·실행 조건·채택 여부와 함께 기록합니다.
+Run the first generation experiment manually. Set the tool, budget, and permitted use of reference images before running it. Record the date, conditions, and selection result.
 
-릴리스 자동화와 배포는 공개 범위 및 자산별 라이선스가 정해진 뒤 구성합니다.
+Set up release automation and deployment once the publication scope and asset licenses are clear.

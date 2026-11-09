@@ -1,20 +1,20 @@
-# GOAL
+# Goal
 
-## 프로젝트 목적
+[English](GOAL.md) / [한국어](GOAL-ko.md)
 
-개인 디자인 시스템에서 이미지가 필요한 순간에 용도에 맞는 색과 표현 방식을 고르고, 이전 작업을 그대로 쓰거나 변형해 다시 쓸 수 있게 합니다. 갤러리에서 결과를 찾을 수 있어야 하고, 결과를 만든 조건도 함께 찾을 수 있어야 합니다.
+Build a personal design system that makes it easy to choose colors and treatments for a specific image, reuse a previous asset, or adapt its recipe for a new subject. Keep the finished image and the decisions behind it easy to find together.
 
-| 항목 | 초기 범위 |
+| Area | Initial scope |
 | --- | --- |
-| 용도 | 빈 상태용 제품 삽화와 문서·발표용 배너부터 시작 |
-| 팔레트 | 두 프로필의 공통 팥죽색 `#680C2C`를 기본 강조색으로 쓰고, 배경과 보조색은 용도에 맞게 지정 |
-| 스타일 | 형태, 깊이, 질감, 구도, 피해야 할 표현을 기록 |
-| 레시피 | 용도, 팔레트, 스타일, 출력 크기, 구도 지시를 연결 |
-| 갤러리 | 승인 자산과 실험용 예시를 구분하고 원본과 레시피에 연결 |
-| 초기 구성 | `template-pilot-ai-python`의 목표·계획·README·문서·CI·PR 틀을 가져오고 Node.js 기본 모듈로 검증 |
+| Use cases | Start with product empty states and document or presentation banners |
+| Palette | Use the shared red-bean accent `#680C2C` from both profile projects and choose backgrounds and supporting colors by use |
+| Style | Record shape, depth, texture, composition, and treatments to avoid |
+| Recipe | Connect a use case, palette, style, output size, and composition |
+| Gallery | Separate approved assets and comparison samples. Link each image to its file and recipe |
+| Starter setup | Adapt the goal, plan, README, docs, CI, and PR structure from `template-pilot-ai-python`. Use Node.js built-ins for validation |
 
-## 첫 파일럿의 성공 기준
+## First pilot success criteria
 
-1. 두 용도에서 각각 승인 이미지 2종을 확보하고, 실제 화면이나 문서에 각 1종을 배치해 확인합니다.
-2. 갤러리에서 용도에 맞는 기존 이미지 또는 레시피를 찾아 다른 주제에 재사용한 사례를 2건 기록합니다.
-3. 승인 자산은 팔레트·스타일·레시피 버전과 제작 출처, 재사용 범위를 추적할 수 있습니다. 색과 구도는 실제 배치에서 검수합니다.
+1. Approve two images for each use case. Review at least one per use case in an actual screen or document.
+2. Record two examples of finding an existing image or recipe in the gallery and reusing it for another subject.
+3. Trace approved assets to their palette, style, recipe, source, and reuse terms. Review color and composition in the intended placement.

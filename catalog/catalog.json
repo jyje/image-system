@@ -1,8 +1,14 @@
 {
   "defaultPalette": "profile-light-v1",
   "useCases": {
-    "empty-state": "제품 빈 상태",
-    "editorial-banner": "문서·발표 배너"
+    "empty-state": {
+      "en": "Product empty state",
+      "ko": "제품 빈 상태"
+    },
+    "editorial-banner": {
+      "en": "Document and presentation banner",
+      "ko": "문서·발표 배너"
+    }
   },
   "palettes": {
     "profile-light-v1": {
@@ -29,13 +35,25 @@
   "styles": {
     "soft-outline-v1": {
       "name": "Soft Outline",
-      "direction": "둥근 모서리, 일정한 윤곽선, 평면 색면, 낮은 시각적 강조",
-      "avoid": "두꺼운 그림자, 촘촘한 장식, 이미지 안 문구"
+      "direction": {
+        "en": "Rounded corners, consistent outlines, flat fills, and low visual emphasis.",
+        "ko": "둥근 모서리, 일정한 윤곽선, 평면 색면, 낮은 시각적 강조"
+      },
+      "avoid": {
+        "en": "Heavy shadows, dense ornament, and text inside the image.",
+        "ko": "두꺼운 그림자, 촘촘한 장식, 이미지 안 문구"
+      }
     },
     "layered-cutout-v1": {
       "name": "Layered Cutout",
-      "direction": "큰 기하학적 색면, 겹친 종이 같은 깊이, 오른쪽에 모인 형태",
-      "avoid": "사진 질감, 강한 그라디언트, 왼쪽 여백을 가리는 요소"
+      "direction": {
+        "en": "Large geometric shapes, layered paper-like depth, and a composition weighted to the right.",
+        "ko": "큰 기하학적 색면, 겹친 종이 같은 깊이, 오른쪽에 모인 형태"
+      },
+      "avoid": {
+        "en": "Photographic textures, strong gradients, and elements that fill the left-hand space.",
+        "ko": "사진 질감, 강한 그라디언트, 왼쪽 여백을 가리는 요소"
+      }
     }
   },
   "recipes": {
@@ -43,15 +61,27 @@
       "useCase": "empty-state",
       "palette": "profile-light-v1",
       "style": "soft-outline-v1",
-      "size": [400, 400],
-      "composition": "하나의 대상을 중앙에 두고 가장자리에 충분한 여백을 남깁니다. 강조색은 작은 요소에 씁니다."
+      "size": [
+        400,
+        400
+      ],
+      "composition": {
+        "en": "Center a single subject with ample space around it. Reserve the accent color for small elements.",
+        "ko": "하나의 대상을 중앙에 두고 가장자리에 충분한 여백을 남깁니다. 강조색은 작은 요소에 씁니다."
+      }
     },
     "editorial-cover-v1": {
       "useCase": "editorial-banner",
       "palette": "profile-dark-v1",
       "style": "layered-cutout-v1",
-      "size": [800, 450],
-      "composition": "왼쪽 절반을 제목용으로 비워 두고 오른쪽에 큰 형태를 겹칩니다. 출력 이미지에는 글자를 넣지 않습니다."
+      "size": [
+        800,
+        450
+      ],
+      "composition": {
+        "en": "Leave the left half open for a title and layer large shapes on the right. Keep text out of the image.",
+        "ko": "왼쪽 절반을 제목용으로 비워 두고 오른쪽에 큰 형태를 겹칩니다. 출력 이미지에는 글자를 넣지 않습니다."
+      }
     }
   },
   "assets": {
@@ -60,18 +90,36 @@
       "recipe": "empty-state-spot-v1",
       "status": "sample",
       "file": "quiet-tray-v1.svg",
-      "alt": "연분홍 원을 배경으로 옅은 회색 트레이 위에 팥죽색 원과 짧은 선이 떠 있습니다.",
-      "source": "저장소에서 직접 작성한 SVG",
-      "rights": "프로젝트 내 스타일 비교용 예시"
+      "alt": {
+        "en": "A red-bean colored dot and short strokes float above a light gray tray against a pale pink circle.",
+        "ko": "연분홍 원을 배경으로 옅은 회색 트레이 위에 팥죽색 원과 짧은 선이 떠 있습니다."
+      },
+      "source": {
+        "en": "SVG drawn for this repository.",
+        "ko": "저장소에서 직접 작성한 SVG"
+      },
+      "rights": {
+        "en": "For style comparison within this project.",
+        "ko": "프로젝트 내 스타일 비교용 예시"
+      }
     },
     "tideline-v1": {
       "title": "Tideline",
       "recipe": "editorial-cover-v1",
       "status": "sample",
       "file": "tideline-v1.svg",
-      "alt": "짙은 청회색 바탕 오른쪽에 분홍색 해와 겹겹이 쌓인 파도가 있습니다.",
-      "source": "저장소에서 직접 작성한 SVG",
-      "rights": "프로젝트 내 스타일 비교용 예시"
+      "alt": {
+        "en": "A pink sun and layered waves sit on the right against a dark blue-gray background.",
+        "ko": "짙은 청회색 바탕 오른쪽에 분홍색 해와 겹겹이 쌓인 파도가 있습니다."
+      },
+      "source": {
+        "en": "SVG drawn for this repository.",
+        "ko": "저장소에서 직접 작성한 SVG"
+      },
+      "rights": {
+        "en": "For style comparison within this project.",
+        "ko": "프로젝트 내 스타일 비교용 예시"
+      }
     }
   }
 }

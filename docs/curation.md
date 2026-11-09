@@ -1,43 +1,45 @@
-# 큐레이션과 검수
+# Curation and Review
 
-## 작업 흐름
+[English](curation.md) / [한국어](curation-ko.md)
+
+## Workflow
 
 ```mermaid
 flowchart LR
-  A["용도와 배치 정의"] --> B["갤러리 검색"]
-  B --> C["기존 자산 재사용"]
-  B --> D["팔레트·스타일·레시피 선택"]
-  D --> E["후보 제작 및 비교"]
-  E --> F["검수와 승인"]
-  F --> G["카탈로그 등록 및 갤러리 갱신"]
+  A["Define use and placement"] --> B["Search the gallery"]
+  B --> C["Reuse an asset"]
+  B --> D["Choose a palette, style, and recipe"]
+  D --> E["Make and compare candidates"]
+  E --> F["Review and approve"]
+  F --> G["Register the asset and rebuild the gallery"]
 ```
 
-1. **브리프**. 어디에 쓰는 이미지인지, 이미지가 어떤 메시지를 보조하는지, 크롭과 텍스트 배치 영역을 정합니다.
-2. **레시피**. 팔레트 ID, 스타일 ID, 출력 크기, 구성과 금지 요소를 기록합니다. 외부 생성 도구를 썼다면 모델·버전, 최종 프롬프트, 참조 이미지의 용도와 강도, 시드 등 도구가 제공한 실행 조건을 남깁니다.
-3. **후보 비교**. 같은 주제로 색 또는 스타일 조건을 하나씩 바꿉니다. 색은 HEX와 함께 배경·강조·중립 등 역할을 지정합니다. 출력에 정확한 색이 필요한 면은 후편집으로 맞춘 뒤 최종 파일을 기준으로 확인합니다.
-4. **승인**. 아래 기준을 실제 배치에 대입한 후, 재사용 범위가 확인된 이미지와 기록을 등록합니다.
+1. **Brief.** Define where the image will appear, what message it supports, and how it should accommodate cropping and surrounding text.
+2. **Recipe.** Record the palette and style IDs, output size, composition, and treatments to avoid. If you use an external tool, record the model and version, final prompt, role and strength of references, and settings the tool exposes, such as the seed.
+3. **Comparison.** Change one color or style condition at a time for the same subject. Pair each hex value with its role, such as background, accent, or neutral. If a surface needs an exact color, correct it after generation and check the final file.
+4. **Approval.** Review each candidate in its intended placement against the criteria below. Register the image and its record once its reuse terms are clear.
 
-## 팔레트
+## Palettes
 
-- **Profile Light** (`profile-light-v1`). `jyje/profile`의 `_config.yml`에 있는 `rgb(104, 12, 44)`와 `jyje/profile-2`의 `src/css/custom.css`에 있는 `--site-accent`가 가리키는 공통 색 `#680C2C`를 기본 강조색으로 씁니다. 흰 배경, 청회색 잉크, 옅은 표면색은 `profile-2` 라이트 테마에서, 연분홍 보조색 `#FBE1E9`는 같은 파일의 다크 테마 색상 단계에서 가져왔습니다.
-- **Profile Dark** (`profile-dark-v1`). 어두운 배경용입니다. 배경 `#13242E`와 강조색 `#F0A6BF`를 비롯한 색을 `profile-2` 다크 테마에서 가져왔습니다.
-- 카탈로그의 `defaultPalette`는 새 레시피를 작성할 때의 기본 선택입니다. 각 레시피에 팔레트 ID를 명시해 기본값이 바뀌어도 기존 이미지의 제작 조건을 추적할 수 있게 합니다.
+- **Profile Light** (`profile-light-v1`). The default accent is the red-bean tone `#680C2C`, shared by `accent_color` in `jyje/profile` and `--site-accent` in `jyje/profile-2`. The light background, ink, and surface come from the latter's light theme. The pink tint `#FBE1E9` comes from its dark theme's color scale.
+- **Profile Dark** (`profile-dark-v1`). For dark backgrounds, use colors from the `profile-2` dark theme, including background `#13242E` and accent `#F0A6BF`.
+- Use `defaultPalette` as a starting point for a new recipe. Record the chosen palette ID explicitly so existing recipes remain traceable if the default changes.
 
-## 승인 기준
+## Approval criteria
 
-| 항목 | 확인할 내용 |
+| Area | What to check |
 | --- | --- |
-| 용도 | 의도한 화면이나 문서에서 이미지의 역할이 분명하고, 주변 문구와 핵심 UI가 여전히 눈에 들어오는가 |
-| 색 | 주요 색이 지정된 역할을 지키고 강조색의 비중이 적절한가 |
-| 스타일과 구도 | 형태·선·질감이 의도와 맞고, 실제 크롭에서 대상과 텍스트 여백이 유지되는가 |
-| 접근성 | 의미를 전달하는 이미지는 대체 텍스트를 제공하고, 실제 배치에서 텍스트와 핵심 요소의 대비를 확인했는가 |
-| 출처 | 입력·참조·출력의 사용 범위, 제작 도구와 조건을 확인할 수 있는가 |
+| Use | The image has a clear role in context, and nearby copy and key controls remain easy to find. |
+| Color | The main colors serve their assigned roles and the accent has the intended prominence. |
+| Style and composition | Shape, line, and texture fit the brief. The subject and space for text survive the actual crop. |
+| Accessibility | Meaningful images have alt text. Text and key elements have adequate contrast in the intended placement. |
+| Provenance | The tool, production settings, and usage terms for inputs, references, and outputs are recorded. |
 
-## 등록과 유지보수
+## Registration and maintenance
 
-- `catalog/catalog.json`의 팔레트·스타일·레시피는 `-v1` 같은 버전이 포함된 ID로 연결합니다. 색이나 구도를 바꾸면 새 ID를 만들고, 기존 자산은 원래 ID를 유지합니다. 바뀐 이미지도 새 ID와 파일명으로 저장합니다.
-- 초안, 비공개 원본, 참조 파일은 Git에서 제외된 `temp/`에서 관리합니다. 카탈로그에 등록하는 파일은 저장소에 포함할 권한을 먼저 확인합니다.
-- 등록 항목은 이미지 경로, 용도와 레시피, 대체 텍스트, 제작 출처(`source`), 재사용 범위(`rights`)를 갖습니다. 초기 생성 실험에서는 도구와 실행 조건을 `source`에 기록할 수 있습니다. 실제 실험 뒤 반복 비교에 필요한 필드를 확정합니다.
-- `sample`은 비교용 예시, `approved`는 검수를 통과한 자산, `archived`는 활성 갤러리에서 내린 자산입니다. 보관 상태의 파일과 기록은 이전 사용처 추적에 활용합니다.
-- 새 작업에서 이미지를 재사용하거나 레시피를 변형했다면 작업 문서에 자산 또는 레시피 ID와 적용한 위치를 남깁니다. 이후 해당 자산을 수정하거나 교체할 때 이 기록으로 영향을 받는 사용처를 확인합니다.
-- 등록 후 `node scripts/gallery.mjs build`와 `node scripts/gallery.mjs check`를 실행합니다. 자동 검증은 카탈로그의 구조, 참조, 파일, 갤러리 동기화를 확인합니다. 실제 배치와 권한은 사람이 검수합니다.
+- Use versioned IDs such as `-v1` for palettes, styles, and recipes in `catalog/catalog.json`. Create a new ID when a design changes. Keep existing asset references intact and give a revised image a new ID and filename.
+- Keep drafts, private originals, and reference files under the ignored `temp/` directory. Confirm permission to include a file before registering it.
+- Record each asset's file, recipe, alt text, source, and reuse terms. Write gallery descriptions as `{ "en": "...", "ko": "..." }` in the catalog. Use `source` to record the tool and settings in the initial experiments.
+- Use `sample` for comparison assets, `approved` for reviewed assets, and `archived` for assets retired from the active gallery. Keep archived files and records so past uses remain traceable.
+- When you reuse an asset or adapt a recipe, record its ID and placement in the work's documentation.
+- Run `node scripts/gallery.mjs build` and `node scripts/gallery.mjs check` after registration. The check validates the catalog and both generated gallery READMEs. Placement and reuse terms require human review.
