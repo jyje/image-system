@@ -73,12 +73,12 @@ function findLogoSizes() {
   return logos.sort((a, b) => a.width - b.width || a.height - b.height);
 }
 
-function renderActions(rawBase, directory, files, labels) {
+function renderActions({ rawBase, assets }, directory, files, labels) {
   const rawUrl = (file) => new URL(file, new URL(directory, rawBase)).href;
   const id = `${files[0]}-file`;
   const groups = Map.groupBy(files, (file) => extname(file).slice(1).toUpperCase());
   const options = [...groups].map(([format, variants]) => `<optgroup label="${format}">
-        ${variants.map((file) => `<option value="assets/${file}" data-raw="${rawUrl(file)}">${file}</option>`).join("\n        ")}
+        ${variants.map((file) => `<option value="${assets}${file}" data-raw="${rawUrl(file)}">${file}</option>`).join("\n        ")}
       </optgroup>`).join("\n      ");
   const picker = files.length === 1
     ? `<code id="${id}">${files[0]}</code>`
@@ -93,24 +93,26 @@ function renderActions(rawBase, directory, files, labels) {
   </div>`;
 }
 
-function renderCard(asset, catalog, language, labels, rawBase) {
+function renderCard(asset, catalog, language, labels, urls) {
   const recipe = catalog.recipes[asset.recipe];
   const [width, height] = recipe.size;
   const metadata = [catalog.palettes[recipe.palette].name, catalog.styles[recipe.style].name, `${width} × ${height}`];
   return `<article class="photo-card" data-asset>
-    <a class="photo-wrapper" href="assets/${asset.file}" data-preview>
-      <img class="photo-img" src="assets/${asset.file}" width="${width}" height="${height}" alt="${escapeHtml(asset.alt[language])}" loading="lazy">
+    <a class="photo-wrapper" href="${urls.assets}${asset.file}" data-preview>
+      <img class="photo-img" src="${urls.assets}${asset.file}" width="${width}" height="${height}" alt="${escapeHtml(asset.alt[language])}" loading="lazy">
     </a>
     <div class="photo-caption">
       <p class="index-label">${escapeHtml(catalog.useCases[recipe.useCase][language])}</p>
       <h3>${escapeHtml(asset.title)}</h3>
       <p class="metadata">${escapeHtml(metadata.join(" · "))}</p>
-      ${renderActions(rawBase, "gallery/assets/", assetFiles(asset), labels)}
+      ${renderActions(urls, "gallery/assets/", assetFiles(asset), labels)}
     </div>
   </article>`;
 }
 
 function renderPage(markup, catalog, visible, logoSizes, language, labels, rawBase) {
+  const root = language === "en" ? "./" : "../";
+  const urls = { rawBase, assets: `${root}assets/` };
   const sections = [];
   for (const status of ["approved", "sample"]) {
     const assets = visible.filter((asset) => asset.status === status);
@@ -121,29 +123,29 @@ function renderPage(markup, catalog, visible, logoSizes, language, labels, rawBa
         ${status === "sample" ? `<p>${labels.sampleNote}</p>` : ""}
       </div>
       <div class="gallery-grid">
-        ${assets.map((asset) => renderCard(asset, catalog, language, labels, rawBase)).join("\n        ")}
+        ${assets.map((asset) => renderCard(asset, catalog, language, labels, urls)).join("\n        ")}
       </div>
     </section>`);
   }
 
   const logoSteps = logoSizes.map(({ file, width, height }) => {
     const size = width === height ? `${width} px` : `${width} × ${height} px`;
-    return `<li><a href="assets/${file}" data-logo-size>
-          <img src="assets/${file}" width="${width}" height="${height}" alt="">
+    return `<li><a href="${urls.assets}${file}" data-logo-size>
+          <img src="${urls.assets}${file}" width="${width}" height="${height}" alt="">
           <span>${size}</span>
         </a></li>`;
   });
   const values = {
     ...labels,
     language,
-    home: language === "en" ? "index.html" : "ko.html",
+    root,
     englishCurrent: language === "en" ? ' aria-current="page"' : "",
     koreanCurrent: language === "ko" ? ' aria-current="page"' : "",
     collection: sections.join("\n    ") || `<p>${labels.empty}</p>`,
     logoSteps: logoSteps.length
       ? `<ul class="logo-steps" aria-label="${labels.logoPreviews}">\n        ${logoSteps.join("\n        ")}\n      </ul>`
       : "",
-    brandActions: renderActions(rawBase, "assets/brand/", ["jyje.svg", ...logoSizes.map(({ file }) => file)], labels),
+    brandActions: renderActions(urls, "assets/brand/", ["jyje.svg", ...logoSizes.map(({ file }) => file)], labels),
   };
   return markup.replace(/\{\{(\w+)\}\}/g, (_, key) => values[key]);
 }
@@ -171,9 +173,11 @@ export function buildSite(catalog, assetsUrl) {
     for (const file of ["gallery.css", "gallery.js", "LICENSE.template"]) {
       copyFileSync(new URL(file, import.meta.url), join(staging, file));
     }
-    for (const [language, file] of [["en", "index.html"], ["ko", "ko.html"]]) {
+    mkdirSync(join(staging, "ko"));
+    for (const [language, file] of [["en", "index.html"], ["ko", "ko/index.html"]]) {
       writeFileSync(join(staging, file), renderPage(markup, catalog, visible, logoSizes, language, copy[language], rawBase));
     }
+    copyFileSync(new URL("ko-redirect.html", import.meta.url), join(staging, "ko.html"));
     writeFileSync(join(staging, ".nojekyll"), "");
 
     rmSync(output, { recursive: true, force: true });
@@ -182,5 +186,5 @@ export function buildSite(catalog, assetsUrl) {
     rmSync(staging, { recursive: true, force: true });
   }
 
-  console.log("Built dist/gallery/index.html and dist/gallery/ko.html.");
+  console.log("Built dist/gallery/index.html and dist/gallery/ko/index.html.");
 }

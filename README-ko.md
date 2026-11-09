@@ -27,7 +27,7 @@ node scripts/gallery.mjs check
 
 ## 정적 갤러리 미리보기
 
-`node scripts/gallery.mjs site`를 실행한 뒤 브라우저에서 `dist/gallery/index.html`을 엽니다. 영문과 국문 페이지는 같은 카탈로그를 사용합니다. 이미지에 파일이 여러 개면 메뉴에서 형식이나 크기를 고릅니다. **URL 복사** 버튼은 선택한 파일의 `raw.githubusercontent.com` 주소를 복사합니다.
+`node scripts/gallery.mjs site`를 실행해 같은 카탈로그에서 영문·국문 페이지를 생성합니다. 영문은 `dist/gallery/index.html`, 국문은 `dist/gallery/ko/index.html`을 엽니다. 로컬에서 언어 전환을 보려면 `dist/gallery/`를 HTTP로 제공합니다. 이미지에 파일이 여러 개면 메뉴에서 형식이나 크기를 고릅니다. **URL 복사** 버튼은 선택한 파일의 `raw.githubusercontent.com` 주소를 복사합니다.
 
 GitHub Pages는 `gh-pages` 브랜치의 루트에서 생성된 파일을 제공합니다. 게시 페이지의 Raw URL을 해당 소스 커밋에 고정하려면 이미 푸시한 커밋에서 `IMAGE_SYSTEM_RAW_REF=$(git rev-parse HEAD) node scripts/gallery.mjs site`를 실행합니다. `dist/gallery/`의 내용만 `gh-pages`에 게시합니다.
 

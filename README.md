@@ -27,7 +27,7 @@ node scripts/gallery.mjs check
 
 ## Static gallery preview
 
-Run `node scripts/gallery.mjs site` and open `dist/gallery/index.html` in a browser. The English and Korean pages use the same catalog. When an image has multiple files, choose a format or size from its menu. **Copy URL** copies the selected file's `raw.githubusercontent.com` URL.
+Run `node scripts/gallery.mjs site` to build the English and Korean pages from the same catalog. Open `dist/gallery/index.html` for English or `dist/gallery/ko/index.html` for Korean. To preview language navigation locally, serve `dist/gallery/` over HTTP. When an image has multiple files, choose a format or size from its menu. **Copy URL** copies the selected file's `raw.githubusercontent.com` URL.
 
 GitHub Pages serves the generated files from the root of `gh-pages`. Build with `IMAGE_SYSTEM_RAW_REF=$(git rev-parse HEAD) node scripts/gallery.mjs site` from an already pushed source commit so the published Raw URLs point to that exact snapshot. Publish only the contents of `dist/gallery/` to `gh-pages`.
 

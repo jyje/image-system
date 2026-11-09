@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#680C2C">
   <title>{{title}} | jyje</title>
-  <link rel="icon" href="assets/jyje.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="gallery.css">
-  <script src="gallery.js" defer></script>
+  <link rel="icon" href="{{root}}assets/jyje.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{root}}gallery.css">
+  <script src="{{root}}gallery.js" defer></script>
 </head>
 <body>
   <header class="masthead">
     <div class="frame header-row">
-      <a class="wordmark" href="{{home}}">
-        <img src="assets/jyje.svg" width="36" height="36" alt="">
+      <a class="wordmark" href="./">
+        <img src="{{root}}assets/jyje.svg" width="36" height="36" alt="">
         <span>jyje <span class="slash">/</span> Image System</span>
       </a>
       <nav aria-label="{{languages}}">
-        <a href="index.html" lang="en"{{englishCurrent}}>EN</a>
-        <a href="ko.html" lang="ko"{{koreanCurrent}}>한국어</a>
+        <a href="{{root}}" lang="en"{{englishCurrent}}>EN</a>
+        <a href="{{root}}ko/" lang="ko"{{koreanCurrent}}>한국어</a>
       </nav>
     </div>
   </header>
@@ -36,7 +36,7 @@
       {{logoSteps}}
       <div class="brand-entry">
         {{brandActions}}
-        <a class="open-file" href="assets/jyje.svg" data-preview>{{openFile}}</a>
+        <a class="open-file" href="{{root}}assets/jyje.svg" data-preview>{{openFile}}</a>
       </div>
     </section>
   </main>
