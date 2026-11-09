@@ -25,6 +25,14 @@ node scripts/gallery.mjs build
 node scripts/gallery.mjs check
 ```
 
+## 정적 갤러리 미리보기
+
+`node scripts/gallery.mjs site`를 실행한 뒤 브라우저에서 `dist/gallery/index.html`을 엽니다. 영문과 국문 페이지는 같은 카탈로그를 사용합니다. 이미지에 파일이 여러 개면 메뉴에서 형식이나 크기를 고릅니다. **URL 복사** 버튼은 선택한 파일의 `raw.githubusercontent.com` 주소를 복사합니다.
+
+GitHub Pages는 `gh-pages` 브랜치의 루트에서 생성된 파일을 제공합니다. 게시 페이지의 Raw URL을 해당 소스 커밋에 고정하려면 이미 푸시한 커밋에서 `IMAGE_SYSTEM_RAW_REF=$(git rev-parse HEAD) node scripts/gallery.mjs site`를 실행합니다. `dist/gallery/`의 내용만 `gh-pages`에 게시합니다.
+
+반응형 그리드는 [Through The Lens](https://github.com/Vojislav77/gallery-website)를 바탕으로 구성했습니다. MIT 라이선스 고지는 [LICENSE.template](site/LICENSE.template)에 있습니다.
+
 - [프로젝트 목표](GOAL-ko.md)에 프로젝트 목적과 성공 기준을 정리했습니다.
 - [프로젝트 계획](PLAN-ko.md)에서 초기 갤러리와 생성 파일럿의 진행 상황을 관리합니다.
 - [문서](docs/README-ko.md)에서 큐레이션, 검수, 공개 사례를 확인할 수 있습니다.

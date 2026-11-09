@@ -20,7 +20,7 @@
 
 <img src="assets/quiet-tray-v1.svg" width="360" alt="연분홍 원을 배경으로 옅은 회색 트레이 위에 팥죽색 원과 짧은 선이 떠 있습니다.">
 
-- [이미지 파일](assets/quiet-tray-v1.svg) · 400 × 400 px
+- 이미지 파일 · [quiet-tray-v1.svg](assets/quiet-tray-v1.svg) · [quiet-tray-v1.png](assets/quiet-tray-v1.png) · 400 × 400 px
 - 팔레트 Profile Light (`profile-light-v1`) · background `#FFFFFF` · surface `#F3F6F7` · ink `#193747` · accent `#680C2C` · accent-tint `#FBE1E9`
 - 스타일 Soft Outline (`soft-outline-v1`) · 둥근 모서리, 일정한 윤곽선, 평면 색면, 낮은 시각적 강조
 - 피할 표현 · 두꺼운 그림자, 촘촘한 장식, 이미지 안 문구
@@ -34,7 +34,7 @@
 
 <img src="assets/tideline-v1.svg" width="360" alt="짙은 청회색 바탕 오른쪽에 분홍색 해와 겹겹이 쌓인 파도가 있습니다.">
 
-- [이미지 파일](assets/tideline-v1.svg) · 800 × 450 px
+- 이미지 파일 · [tideline-v1.svg](assets/tideline-v1.svg) · 800 × 450 px
 - 팔레트 Profile Dark (`profile-dark-v1`) · background `#13242E` · surface `#1D343F` · ink `#E8F0F3` · accent `#F0A6BF` · muted `#365360`
 - 스타일 Layered Cutout (`layered-cutout-v1`) · 큰 기하학적 색면, 겹친 종이 같은 깊이, 오른쪽에 모인 형태
 - 피할 표현 · 사진 질감, 강한 그라디언트, 왼쪽 여백을 가리는 요소
