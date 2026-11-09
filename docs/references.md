@@ -4,6 +4,7 @@
 
 | Example | Practice | Application to this project |
 | --- | --- | --- |
+| Lobe Icons | Pairs a searchable visual catalog with static SVGs addressable by icon slug. [Catalog](https://icons.lobehub.com/), [Static SVG usage](https://github.com/lobehub/lobe-icons/tree/master/packages/static-svg) | Keep previews next to the files and use stable asset IDs so an image can be found and referenced directly from another project. |
 | Atlassian Design | Uses spot illustrations for single concepts, low-fidelity UI for workflows, and patterns for backgrounds. It recommends spots for contexts such as empty and error states and encourages reuse. [Illustrations](https://atlassian.design/guidelines/brand/illustrations/) | Group the gallery by use case and look for an existing asset before making a new one. |
 | Atlassian Design Color | UI color tokens express where a color applies, its role, and its emphasis. [Color](https://atlassian.design/foundations/color) | Give image palette colors explicit roles such as background, accent, and neutral. |
 | IBM Design Language | Provides separate kits for line, flat, and isometric illustration. [Resources](https://www.ibm.com/design/language/resources/) | Keep a reference sample and shape, depth, and texture guidance for each style. |
