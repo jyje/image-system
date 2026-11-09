@@ -1,0 +1,77 @@
+{
+  "defaultPalette": "profile-light-v1",
+  "useCases": {
+    "empty-state": "제품 빈 상태",
+    "editorial-banner": "문서·발표 배너"
+  },
+  "palettes": {
+    "profile-light-v1": {
+      "name": "Profile Light",
+      "colors": {
+        "background": "#FFFFFF",
+        "surface": "#F3F6F7",
+        "ink": "#193747",
+        "accent": "#680C2C",
+        "accent-tint": "#FBE1E9"
+      }
+    },
+    "profile-dark-v1": {
+      "name": "Profile Dark",
+      "colors": {
+        "background": "#13242E",
+        "surface": "#1D343F",
+        "ink": "#E8F0F3",
+        "accent": "#F0A6BF",
+        "muted": "#365360"
+      }
+    }
+  },
+  "styles": {
+    "soft-outline-v1": {
+      "name": "Soft Outline",
+      "direction": "둥근 모서리, 일정한 윤곽선, 평면 색면, 낮은 시각적 강조",
+      "avoid": "두꺼운 그림자, 촘촘한 장식, 이미지 안 문구"
+    },
+    "layered-cutout-v1": {
+      "name": "Layered Cutout",
+      "direction": "큰 기하학적 색면, 겹친 종이 같은 깊이, 오른쪽에 모인 형태",
+      "avoid": "사진 질감, 강한 그라디언트, 왼쪽 여백을 가리는 요소"
+    }
+  },
+  "recipes": {
+    "empty-state-spot-v1": {
+      "useCase": "empty-state",
+      "palette": "profile-light-v1",
+      "style": "soft-outline-v1",
+      "size": [400, 400],
+      "composition": "하나의 대상을 중앙에 두고 가장자리에 충분한 여백을 남깁니다. 강조색은 작은 요소에 씁니다."
+    },
+    "editorial-cover-v1": {
+      "useCase": "editorial-banner",
+      "palette": "profile-dark-v1",
+      "style": "layered-cutout-v1",
+      "size": [800, 450],
+      "composition": "왼쪽 절반을 제목용으로 비워 두고 오른쪽에 큰 형태를 겹칩니다. 출력 이미지에는 글자를 넣지 않습니다."
+    }
+  },
+  "assets": {
+    "quiet-tray-v1": {
+      "title": "Quiet Tray",
+      "recipe": "empty-state-spot-v1",
+      "status": "sample",
+      "file": "quiet-tray-v1.svg",
+      "alt": "연분홍 원을 배경으로 옅은 회색 트레이 위에 팥죽색 원과 짧은 선이 떠 있습니다.",
+      "source": "저장소에서 직접 작성한 SVG",
+      "rights": "프로젝트 내 스타일 비교용 예시"
+    },
+    "tideline-v1": {
+      "title": "Tideline",
+      "recipe": "editorial-cover-v1",
+      "status": "sample",
+      "file": "tideline-v1.svg",
+      "alt": "짙은 청회색 바탕 오른쪽에 분홍색 해와 겹겹이 쌓인 파도가 있습니다.",
+      "source": "저장소에서 직접 작성한 SVG",
+      "rights": "프로젝트 내 스타일 비교용 예시"
+    }
+  }
+}

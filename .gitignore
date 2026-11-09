@@ -1,0 +1,13 @@
+# Private references, raw generation output, and working notes
+/temp/
+
+# Local credentials
+.env
+.env.*
+!.env.sample
+
+# Local tooling and OS files
+node_modules/
+dist/
+.DS_Store
+.idea/
