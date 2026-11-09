@@ -1,7 +1,9 @@
-# 문서
+# Documentation
 
-- [큐레이션과 검수](curation.md)
-- [공개 디자인 시스템 사례](references.md)
-- [갤러리](../gallery/README.md)
-- [카탈로그](../catalog/catalog.json)
-- [브랜드 에셋과 로고 크기별 미리보기](../assets/brand/README.md)
+[English](README.md) / [한국어](README-ko.md)
+
+- [Curation and review](curation.md)
+- [Design system references](references.md)
+- [Gallery](../gallery/README.md)
+- [Catalog](../catalog/catalog.json)
+- [Brand assets and logo previews](../assets/brand/README.md)

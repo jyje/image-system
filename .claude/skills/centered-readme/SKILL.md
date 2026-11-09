@@ -5,7 +5,7 @@ description: Create or restyle the centered header of the image-system README in
 
 # Centered README
 
-Keep the centered header in `README.md` and `README-ko.md` in sync. Use the same project title, logo, dimensions, badges, and destination links. Localize the tagline, logo alt text, and navigation labels.
+Follow the English-first documentation rule in `AGENTS.md`. Keep the centered header in `README.md` and `README-ko.md` in sync. Use the same project title, logo, dimensions, and badges. Localize the tagline, logo alt text, and navigation labels. Point to the matching language when a translated page exists.
 
 ```markdown
 <div align="center">
