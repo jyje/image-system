@@ -8,6 +8,7 @@ const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const template = new URL("gallery.html", import.meta.url);
 const brandDirectory = new URL("../assets/brand/", import.meta.url);
 const logoFilename = /^jyje-([1-9]\d*)x([1-9]\d*)\.png$/;
+const rawBase = "https://raw.githubusercontent.com/jyje/image-system/main/";
 
 const copy = {
   en: {
@@ -73,12 +74,12 @@ function findLogoSizes() {
   return logos.sort((a, b) => a.width - b.width || a.height - b.height);
 }
 
-function renderActions({ rawBase, assets }, directory, files, labels) {
+function renderActions(assetBase, directory, files, labels) {
   const rawUrl = (file) => new URL(file, new URL(directory, rawBase)).href;
   const id = `${files[0]}-file`;
   const groups = Map.groupBy(files, (file) => extname(file).slice(1).toUpperCase());
   const options = [...groups].map(([format, variants]) => `<optgroup label="${format}">
-        ${variants.map((file) => `<option value="${assets}${file}" data-raw="${rawUrl(file)}">${file}</option>`).join("\n        ")}
+        ${variants.map((file) => `<option value="${assetBase}${file}" data-raw="${rawUrl(file)}">${file}</option>`).join("\n        ")}
       </optgroup>`).join("\n      ");
   const picker = files.length === 1
     ? `<code id="${id}">${files[0]}</code>`
@@ -93,26 +94,26 @@ function renderActions({ rawBase, assets }, directory, files, labels) {
   </div>`;
 }
 
-function renderCard(asset, catalog, language, labels, urls) {
+function renderCard(asset, catalog, language, labels, assetBase) {
   const recipe = catalog.recipes[asset.recipe];
   const [width, height] = recipe.size;
   const metadata = [catalog.palettes[recipe.palette].name, catalog.styles[recipe.style].name, `${width} × ${height}`];
   return `<article class="photo-card" data-asset>
-    <a class="photo-wrapper" href="${urls.assets}${asset.file}" data-preview>
-      <img class="photo-img" src="${urls.assets}${asset.file}" width="${width}" height="${height}" alt="${escapeHtml(asset.alt[language])}" loading="lazy">
+    <a class="photo-wrapper" href="${assetBase}${asset.file}" data-preview>
+      <img class="photo-img" src="${assetBase}${asset.file}" width="${width}" height="${height}" alt="${escapeHtml(asset.alt[language])}" loading="lazy">
     </a>
     <div class="photo-caption">
       <p class="index-label">${escapeHtml(catalog.useCases[recipe.useCase][language])}</p>
       <h3>${escapeHtml(asset.title)}</h3>
       <p class="metadata">${escapeHtml(metadata.join(" · "))}</p>
-      ${renderActions(urls, "gallery/assets/", assetFiles(asset), labels)}
+      ${renderActions(assetBase, "gallery/assets/", assetFiles(asset), labels)}
     </div>
   </article>`;
 }
 
-function renderPage(markup, catalog, visible, logoSizes, language, labels, rawBase) {
+function renderPage(markup, catalog, visible, logoSizes, language, labels) {
   const root = language === "en" ? "./" : "../";
-  const urls = { rawBase, assets: `${root}assets/` };
+  const assetBase = `${root}assets/`;
   const sections = [];
   for (const status of ["approved", "sample"]) {
     const assets = visible.filter((asset) => asset.status === status);
@@ -123,15 +124,15 @@ function renderPage(markup, catalog, visible, logoSizes, language, labels, rawBa
         ${status === "sample" ? `<p>${labels.sampleNote}</p>` : ""}
       </div>
       <div class="gallery-grid">
-        ${assets.map((asset) => renderCard(asset, catalog, language, labels, urls)).join("\n        ")}
+        ${assets.map((asset) => renderCard(asset, catalog, language, labels, assetBase)).join("\n        ")}
       </div>
     </section>`);
   }
 
   const logoSteps = logoSizes.map(({ file, width, height }) => {
     const size = width === height ? `${width} px` : `${width} × ${height} px`;
-    return `<li><a href="${urls.assets}${file}" data-logo-size>
-          <img src="${urls.assets}${file}" width="${width}" height="${height}" alt="">
+    return `<li><a href="${assetBase}${file}" data-logo-size>
+          <img src="${assetBase}${file}" width="${width}" height="${height}" alt="">
           <span>${size}</span>
         </a></li>`;
   });
@@ -145,15 +146,12 @@ function renderPage(markup, catalog, visible, logoSizes, language, labels, rawBa
     logoSteps: logoSteps.length
       ? `<ul class="logo-steps" aria-label="${labels.logoPreviews}">\n        ${logoSteps.join("\n        ")}\n      </ul>`
       : "",
-    brandActions: renderActions(urls, "assets/brand/", ["jyje.svg", ...logoSizes.map(({ file }) => file)], labels),
+    brandActions: renderActions(assetBase, "assets/brand/", ["jyje.svg", ...logoSizes.map(({ file }) => file)], labels),
   };
   return markup.replace(/\{\{(\w+)\}\}/g, (_, key) => values[key]);
 }
 
 export function buildSite(catalog, assetsUrl) {
-  const rawRef = process.env.IMAGE_SYSTEM_RAW_REF ?? "main";
-  assert(rawRef === "main" || /^[a-f0-9]{40}$/.test(rawRef), "IMAGE_SYSTEM_RAW_REF must be main or a full Git commit SHA");
-  const rawBase = `https://raw.githubusercontent.com/jyje/image-system/${rawRef}/`;
   const visible = Object.values(catalog.assets).filter((asset) => asset.status !== "archived");
   const markup = readFileSync(template, "utf8");
   const logoSizes = findLogoSizes();
@@ -175,7 +173,7 @@ export function buildSite(catalog, assetsUrl) {
     }
     mkdirSync(join(staging, "ko"));
     for (const [language, file] of [["en", "index.html"], ["ko", "ko/index.html"]]) {
-      writeFileSync(join(staging, file), renderPage(markup, catalog, visible, logoSizes, language, copy[language], rawBase));
+      writeFileSync(join(staging, file), renderPage(markup, catalog, visible, logoSizes, language, copy[language]));
     }
     copyFileSync(new URL("ko-redirect.html", import.meta.url), join(staging, "ko.html"));
     writeFileSync(join(staging, ".nojekyll"), "");

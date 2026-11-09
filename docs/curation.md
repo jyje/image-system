@@ -47,5 +47,5 @@ flowchart LR
 ## Reuse in another project
 
 1. Find an approved image by use case in the [gallery](../gallery/README.md). Open the image file from its card.
-2. If the file fits, link to it when the destination can access it. Use a commit-pinned file URL when the rendering needs to stay identical, or copy the approved file into the destination project and use a local path.
+2. If the file fits, use the gallery's Raw URL to follow the file on `main`. To keep a local copy, put the approved file in the destination project and refer to it by its local path.
 3. If the subject or composition needs to change, start from the linked recipe and register the new image under its own ID. Record the asset or recipe ID and placement in the project that uses it.
